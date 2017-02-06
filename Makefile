@@ -36,7 +36,7 @@ rpm: AFTER_INSTALL=pkg/centos/after-install.sh
 rpm: BEFORE_REMOVE=pkg/centos/before-remove.sh
 rpm: PREFIX=/opt/spinnaker-example
 rpm: VERSION=$(shell ./build/spinnaker-example -v)
-rpm: ITERATION=$(shell git rev-parse --short HEAD)
+rpm: ITERATION=$(shell date +%s)
 rpm: clean compile build/empty generate-init-scripts
 	fpm -f -s dir -t $@ -n spinnaker-example \
 		-p ./build/spinnaker-example-VERSION-ITERATION.ARCH.rpm \
