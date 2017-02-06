@@ -1,7 +1,7 @@
 FROM oraclelinux:7
 MAINTAINER Andrew Pryde <andrew@rocketpod.co.uk>
 
-# Pass in --build-arg http_proxy=$http_proxy
+# Enable http proxy support for yum and rubygems.
 ARG http_proxy=""
 ENV http_proxy=${http_proxy}
 ENV HTTP_PROXY=${http_proxy}

@@ -2,6 +2,9 @@
 default: compile
 
 OBJECTS=spinnaker-example
+VERSION=$(shell ./build/spinnaker-example -v)
+ITERATION=$(shell git rev-parse --short HEAD)
+BINTRAY_KEY := $(shell echo "$(BINTRAY_KEY)")
 
 .PHONY: compile
 compile: $(OBJECTS)
@@ -49,3 +52,9 @@ rpm: clean compile build/empty generate-init-scripts
 		./build/empty/=/var/log/spinnaker-example/ \
 		./build/etc/default/spinnaker-example=/etc/default/spinnaker-example \
 		./build/etc/systemd/system/spinnaker-example.service=/etc/systemd/system/spinnaker-example.service \
+
+.PHONY: release
+release: rpm
+	 curl -T $(wildcard ./build/*.rpm) \
+		 -uprydie:$(BINTRAY_KEY) \
+		 https://api.bintray.com/content/prydie/oracle/spinnaker-example-go/$(VERSION)-$(ITERATION)/$(notdir $(wildcard ./build/*.rpm));publish=1 \
