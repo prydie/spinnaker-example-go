@@ -55,6 +55,11 @@ rpm: clean compile build/empty generate-init-scripts
 
 .PHONY: release
 release: rpm
-	 curl -T $(wildcard ./build/*.rpm) \
+	curl -T $(wildcard ./build/*.rpm) \
 		 -uprydie:$(BINTRAY_KEY) \
 		 https://api.bintray.com/content/prydie/oracle/spinnaker-example-go/$(VERSION)-$(ITERATION)/$(notdir $(wildcard ./build/*.rpm));publish=1 \
+	curl -uprydie:$(BINTRAY_KEY) \
+                -H "Content-Type: application/json" \
+                -X POST \
+                -d '{"publish_wait_for_secs": -1}' \
+		https://api.bintray.com/content/prydie/oracle/spinnaker-example-go/$(VERSION)-$(ITERATION)/publish
