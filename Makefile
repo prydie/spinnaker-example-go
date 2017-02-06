@@ -32,10 +32,13 @@ generate-init-scripts:
 rpm: AFTER_INSTALL=pkg/centos/after-install.sh
 rpm: BEFORE_REMOVE=pkg/centos/before-remove.sh
 rpm: PREFIX=/opt/spinnaker-example
-rpm: VERSION=2
-rpm: compile build/empty generate-init-scripts
-	fpm -f -s dir -t $@ -n spinnaker-example -v $(VERSION) \
-		--replaces spinnaker-example-go \
+rpm: VERSION=$(shell ./build/spinnaker-example -v)
+rpm: ITERATION=$(shell git rev-parse --short HEAD)
+rpm: clean compile build/empty generate-init-scripts
+	fpm -f -s dir -t $@ -n spinnaker-example \
+		-p ./build/spinnaker-example-VERSION-ITERATION.ARCH.rpm \
+		--version $(VERSION) \
+		--iteration $(ITERATION) \
 		--architecture native \
 		--rpm-os linux \
 		--description "a spinnaker example in Go" \
