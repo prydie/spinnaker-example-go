@@ -12,7 +12,7 @@ import (
 const Version = "1.0.0"
 
 func sayHello(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello world!")
+	fmt.Fprintf(w, "Hello new world!")
 }
 
 func main() {
