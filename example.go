@@ -16,15 +16,15 @@ func sayHello(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	version := flag.Bool("v", false, "prints current spinnaker-example version")
+	version := flag.Bool("v", false, "Prints current spinnaker-example version")
 	flag.Parse()
 	if *version {
 		fmt.Println(Version)
 		os.Exit(0)
 	}
 
-	http.HandleFunc("/", sayHello)           // set router
-	err := http.ListenAndServe(":8080", nil) // set listen port
+	http.HandleFunc("/", sayHello)
+	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
