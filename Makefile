@@ -2,8 +2,9 @@
 default: compile
 
 OBJECTS=spinnaker-example
+
 VERSION=$(shell ./build/spinnaker-example -v)
-ITERATION=$(shell git rev-parse --short HEAD)
+ITERATION=$(shell date +%s)
 BINTRAY_KEY := $(shell echo "$(BINTRAY_KEY)")
 
 .PHONY: compile
