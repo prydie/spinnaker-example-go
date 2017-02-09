@@ -1,2 +1,2 @@
-/sbin/service spinnaker-example start >/dev/null 2>&1 || true
-/sbin/service firewalld stop >/dev/null 2>&1 || true
+/bin/systemctl enable spinnaker-example >/dev/null 2>&1 || true
+/bin/systemctl disable firewalld >/dev/null 2>&1 || true
